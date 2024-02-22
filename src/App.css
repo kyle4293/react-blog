@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.app-container {
+  width: 50%;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+nav {
+  border-bottom: 1px solid #ccc;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.post {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.right {
+  float: right; /* 버튼을 오른쪽으로 이동시킵니다. */
+  margin-bottom: 10px; /* 버튼 아래에 여백을 줍니다. */
+}
+
+.spacer {
+  clear: both; /* float된 요소들을 포함하는 컨테이너의 높이를 계산하기 위해 사용합니다. */
+}
+
+.pagination-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: center; /* 내부 요소를 수평 중앙 정렬합니다. */
+  margin-top: 20px; /* 위쪽 여백 추가 */
 }
 
-.App-link {
-  color: #61dafb;
+.pagination {
+  display: flex;
+  gap: 5px;
+  align-items: center; /* 버튼을 수직 중앙 정렬합니다. */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pagination ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline;
+}
+
+.username {
+  font-size: small;
+  color:rgb(30, 30, 30);
+}
+
+.comment {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.form {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.form input {
+  width: 200px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form textarea {
+  width: 400px;
+  height: 200px;
+  display: block;
+  margin-bottom: 10px;
+
 }
