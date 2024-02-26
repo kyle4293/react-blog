@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PostService from '../../services/PostService';
 import CommentService from '../../services/CommentService';
 import CommentList from '../Comment/CommentList';
 import CommentForm from '../Comment/CommentForm';
-import { useParams } from 'react-router-dom';
+import { Card, CardContent, Typography, CardMedia, Button, TextField, Box } from '@mui/material';
+
 
 function PostDetail() {
   const { postId } = useParams();
@@ -59,13 +61,20 @@ function PostDetail() {
   if (!post) return <div>Loading...</div>;
 
   return (
-    <div className='post-detail'>
-      <h2>{post.title}</h2>
-      <p>{post.contents}</p>
-      {/* 이미지 파일 표시 */}
-      {post.fileUrls && post.fileUrls.map((fileUrl, index) => (
-        <img key={index} src={fileUrl} alt="Uploaded" style={{ maxWidth: "100%" }} />
-      ))}
+    <Card>
+      <CardContent>
+        <Typography variant="h5">{post.title}</Typography>
+        <Typography variant="body1">{post.contents}</Typography>
+        {post.fileUrls && post.fileUrls.map((fileUrl, index) => (
+          <CardMedia
+            key={index}
+            component="img"
+            image={fileUrl}
+            alt="Uploaded"
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
+        ))}
+      </CardContent>
       <CommentForm postId={postId} onCommentAdded={(newComment) => handleAddComment(newComment)} />
       <CommentList
         comments={post.comments}
@@ -76,15 +85,19 @@ function PostDetail() {
         onDeleteComment={handleDeleteComment}
       />
       {editingCommentId && (
-        <div>
-          <textarea
+        <Box>
+          <TextField
+            fullWidth
+            variant="outlined"
             value={editingContent}
             onChange={(e) => setEditingContent(e.target.value)}
           />
-          <button onClick={handleUpdateComment}>Update Comment</button>
-        </div>
+          <Button variant="contained" color="primary" onClick={handleUpdateComment}>
+            Update Comment
+          </Button>
+        </Box>
       )}
-    </div>
+    </Card>
   );
 }
 

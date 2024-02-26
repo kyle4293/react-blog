@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CommentService from '../../services/CommentService';
+import { TextField, Button, Box } from '@mui/material';
 
 function CommentForm({ postId, onCommentAdded }) {
   const [content, setContent] = useState('');
@@ -7,20 +8,40 @@ function CommentForm({ postId, onCommentAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // 댓글 추가 API 호출
       const newComment = await CommentService.createComment(postId, content);
-      onCommentAdded(newComment); // 상위 컴포넌트의 콜백 함수 호출
-      setContent(''); // 입력 필드 초기화
+      onCommentAdded(newComment);
+      setContent('');
     } catch (error) {
       console.error('Error creating comment:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Write your comment here"></textarea>
-      <button type="submit">Submit</button>
-    </form>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="content"
+        label="Write your comment here"
+        name="content"
+        autoComplete="content"
+        autoFocus
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        multiline
+        rows={4}
+        variant="outlined"
+      />
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
+        Submit
+      </Button>
+    </Box>
   );
 }
 

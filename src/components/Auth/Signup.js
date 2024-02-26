@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import AuthService from '../../services/AuthService';
+import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
 function Signup() {
-  const [formData, setFormData] = useState({ username: '', email:'', password: '' });
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -11,26 +12,70 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // AuthService.login 메소드에 사용자 이름과 비밀번호 전달
       await AuthService.signup(formData);
-      // 로그인 성공 후 처리, 예: 홈페이지로 리다이렉트
       window.location.href = '/';
     } catch (error) {
-      console.error('Login failed:', error);
-      // 로그인 실패 처리, 예: 오류 메시지 표시
+      console.error('Signup failed:', error);
     }
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-        <input type="email" name="email" placeholder="email" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Sign Up
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={handleChange}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

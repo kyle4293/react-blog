@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PostService from '../../services/PostService';
+import { TextField, Button, Typography, Box } from '@mui/material';
 
 function PostForm({ editMode, existingPost }) {
   const [formData, setFormData] = useState({ title: '', content: '' });
@@ -51,26 +52,52 @@ function PostForm({ editMode, existingPost }) {
   };
 
   return (
-    <div className='form'>
-      <h2>{editMode ? 'Edit Post' : 'Create Post'}</h2>
+    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+      <Typography variant="h6">{editMode ? 'Edit Post' : 'Create Post'}</Typography>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="title" value={formData.title} placeholder="Title" onChange={handleChange} />
-        <textarea name="content" value={formData.content} placeholder="Content" onChange={handleChange}></textarea>
-        <input type="file" multiple onChange={handleFileChange} />
+        <TextField
+          fullWidth
+          label="Title"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <TextField
+          fullWidth
+          label="Content"
+          name="content"
+          multiline
+          rows={4}
+          value={formData.content}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <input
+          type="file"
+          multiple
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+          id="raised-button-file"
+        />
+        <label htmlFor="raised-button-file">
+          <Button variant="contained" component="span">
+            Upload Files
+          </Button>
+        </label>
         {fileNames.length > 0 && (
-          <div>
-            <p>Selected files:</p>
-            <ul>
-              {fileNames.map((fileName, index) => (
-                <li key={index}>{fileName}</li>
-              ))}
-            </ul>
-          </div>
+          <Box>
+            <Typography>Selected files:</Typography>
+            {fileNames.map((fileName, index) => (
+              <Typography key={index}>{fileName}</Typography>
+            ))}
+          </Box>
         )}
-        <br />
-        <button className="right" type="submit">{editMode ? 'Update' : 'Submit'}</button>
+        <Button variant="contained" color="primary" type="submit">
+          {editMode ? 'Update' : 'Submit'}
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 }
 

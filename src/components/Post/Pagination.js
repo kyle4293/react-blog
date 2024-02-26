@@ -28,7 +28,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
             </li>
             {renderPageNumbers()}
             <li>
-            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
+            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>  Next  </button>
             </li>
         </ul>
         </div>

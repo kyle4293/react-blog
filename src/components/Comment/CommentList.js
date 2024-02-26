@@ -1,23 +1,27 @@
 import React from 'react';
+import { List, ListItem, ListItemText, IconButton, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CommentList({ comments, onEditComment, onDeleteComment }) {
   return (
     <div>
-      <h4>Comments</h4>
-      <ul>
+      <Typography variant="h6" gutterBottom>Comments</Typography>
+      <List>
         {Array.isArray(comments) && comments.map((comment) => (
-          <div className="comment" key={comment.id}>
-            <li>
-              <p>{comment.contents}</p>
-              <button onClick={() => onEditComment(comment)}>Edit</button>
-              <button onClick={() => onDeleteComment(comment.id)}>Delete</button>
-            </li>
-          </div>
+          <ListItem key={comment.id} divider>
+            <ListItemText primary={comment.contents} />
+            <IconButton onClick={() => onEditComment(comment)} color="primary">
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => onDeleteComment(comment.id)} color="secondary">
+              <DeleteIcon />
+            </IconButton>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   );
 }
-
 
 export default CommentList;

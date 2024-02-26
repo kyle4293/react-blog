@@ -1,5 +1,5 @@
 .app-container {
-  width: 50%;
+  width:60%;
   margin: 0 auto;
 }
 
@@ -11,11 +11,6 @@ nav {
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.right {
-  float: right; 
-  margin-bottom: 10px; /* 버튼 아래에 여백을 줍니다. */
 }
 
 .spacer {
