@@ -34,25 +34,35 @@ class PostService {
     }
   }
 
-  async createPost(postData) {
-    try {
-      const response = await axios.post('/api/posts', postData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating post:', error);
-      throw error;
-    }
+async createPost(formData) {
+  try {
+    const response = await axios.post('/api/posts', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating post:', error);
+    throw error;
   }
+}
 
-  async updatePost(postId, postData) {
-    try {
-      const response = await axios.put(`/api/posts/${postId}`, postData);
-      return response.data;
-    } catch (error) {
-      console.error('Error updating post:', error);
-      throw error;
-    }
+async updatePost(postId, formData) {
+  try {
+    const response = await axios.put(`/api/posts/${postId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating post:', error);
+    throw error;
   }
+}
+
+  
 
   async deletePost(postId) {
     try {

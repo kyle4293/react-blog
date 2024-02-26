@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthService from './services/AuthService';
 import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
 import PostList from './components/Post/PostList';
 import PostDetail from './components/Post/PostDetail';
 import PostForm from './components/Post/PostForm'; 
@@ -44,6 +45,7 @@ function App() {
         <Navbar currentUser={currentUser} onLogout={handleLogout} />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={currentUser ? <PostList currentUser={currentUser} /> : <Navigate replace to="/login" />} />
           <Route path="/create-post" element={currentUser ? <PostForm /> : <Navigate replace to="/login" />} /> 
           <Route path="/posts/:postId" element={<PostDetail />} />

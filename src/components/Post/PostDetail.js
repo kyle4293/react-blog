@@ -16,6 +16,7 @@ function PostDetail() {
       try {
         const response = await PostService.getPostById(postId);
         setPost(response);
+        console.log(response);
       } catch (error) {
         console.error('Error fetching post:', error);
       }
@@ -23,6 +24,14 @@ function PostDetail() {
 
     fetchPost();
   }, [postId]);
+
+  const handleAddComment = (newComment) => {
+    setPost(prevPost => ({
+      ...prevPost,
+      comments: [...prevPost.comments, newComment]
+    }));
+  };
+  
 
   const handleUpdateComment = async () => {
     try {
@@ -53,7 +62,11 @@ function PostDetail() {
     <div className='post-detail'>
       <h2>{post.title}</h2>
       <p>{post.contents}</p>
-      <CommentForm postId={postId} />
+      {/* 이미지 파일 표시 */}
+      {post.fileUrls && post.fileUrls.map((fileUrl, index) => (
+        <img key={index} src={fileUrl} alt="Uploaded" style={{ maxWidth: "100%" }} />
+      ))}
+      <CommentForm postId={postId} onCommentAdded={(newComment) => handleAddComment(newComment)} />
       <CommentList
         comments={post.comments}
         onEditComment={comment => {

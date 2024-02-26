@@ -14,7 +14,7 @@ nav {
 }
 
 .right {
-  float: right; /* 버튼을 오른쪽으로 이동시킵니다. */
+  float: right; 
   margin-bottom: 10px; /* 버튼 아래에 여백을 줍니다. */
 }
 
