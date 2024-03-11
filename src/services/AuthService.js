@@ -1,5 +1,5 @@
 // AuthService.js
-import axios from 'axios';
+import instance from '../axios';
 import Cookies from 'js-cookie';
 
 class AuthService {
@@ -8,7 +8,7 @@ class AuthService {
     try {
       Cookies.remove('Authorization'); // 쿠키에서 토큰 제거
 
-      const response = await axios.post('/api/user/login', { username, password });
+      const response = await instance.post('/api/user/login', { username, password });
       return response.data;
     } catch (error) {
       throw error;
@@ -18,7 +18,7 @@ class AuthService {
   // 회원가입 요청을 보내는 메소드
   async signup(userData) {
     try {
-      const response = await axios.post('/api/user/signup', userData);
+      const response = await instance.post('/api/user/signup', userData);
       return response.data;
     } catch (error) {
       throw error;
@@ -39,7 +39,7 @@ class AuthService {
     }
 
     try {
-      const response = await axios.get('/api/user-info', {
+      const response = await instance.get('/api/user-info', {
         headers: { Authorization: `Bearer ${token}` },
       });
       // console.log("res",response.data);
