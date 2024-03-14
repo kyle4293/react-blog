@@ -1,10 +1,10 @@
-import axios from 'axios';
+import instance from '../axios';
 
 class CommentService {
 
   async createComment(postId, commentData) {
     try {
-      const response = await axios.post(`/api/comments`, {
+      const response = await instance.post(`/api/comments`, {
         postId: postId,
         content: commentData
       });
@@ -18,7 +18,7 @@ class CommentService {
 
   async updateComment(commentId, commentData) {
     try {
-      const response = await axios.put(`/api/comments/${commentId}`, commentData);
+      const response = await instance.put(`/api/comments/${commentId}`, commentData);
       return response.data;
     } catch (error) {
       console.error('Error updating comment:', error);
@@ -28,7 +28,7 @@ class CommentService {
 
   async deleteComment(commentId) {
     try {
-      const response = await axios.delete(`/api/comments/${commentId}`);
+      const response = await instance.delete(`/api/comments/${commentId}`);
       return response.data;
     } catch (error) {
       console.error('Error deleting comment:', error);
