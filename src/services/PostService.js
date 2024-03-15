@@ -13,16 +13,21 @@ class PostService {
     }
   }
   
-  async getPosts(page, size, sortBy, isAsc) {
+  async getPosts(page, size, sortBy, isAsc, searchTerm = '') {
     try {
-      const response = await instance.get(`/api/posts?page=${page}&size=${size}&sortBy=${sortBy}&isAsc=${isAsc}`);
-      // console.log(response);
+      // 검색어가 있는 경우 검색 파라미터를 추가
+      const searchParam = searchTerm ? `&keyword=${searchTerm}` : ''; // 'search'를 'keyword'로 수정
+      // API 요청 URL에 검색 및 정렬 파라미터 포함
+      const response = await instance.get(`/api/posts?page=${page}&size=${size}&sortBy=${sortBy}&isAsc=${isAsc}${searchParam}`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching posts:', error);
       throw error;
     }
   }
+  
+  
 
   async getPostById(postId) {
     try {
