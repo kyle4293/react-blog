@@ -45,8 +45,13 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         script: |
+          CONTAINER_ID=$(docker ps -q -f name=react-blog)
+          if [ ! -z "$CONTAINER_ID" ]; then
+            docker stop $CONTAINER_ID
+            docker rm $CONTAINER_ID
+          fi
+
           docker pull ${{ secrets.DOCKER_USERNAME }}/react-blog:${{ github.sha }}
-          docker stop $(docker ps -a -q)
-          docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/react-blog:${{ github.sha }}
-          docker rm $(docker ps --filter 'status=exited' -a -q)
-          docker image prune -a -f
+          docker run -d --name react-blog --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/react-blog:${{ github.sha }}
+          docker image prune -f
+
