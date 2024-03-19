@@ -37,12 +37,12 @@ function Login() {
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
+            id="email"
+            label="email"
+            name="email"
+            autoComplete="email"
             autoFocus
-            value={formData.username}
+            value={formData.email}
             onChange={handleChange}
           />
           <TextField
