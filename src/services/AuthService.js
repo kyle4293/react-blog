@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 class AuthService {
   // 로그인 요청을 보내는 메소드
-  async login(username, password) {
+  async login(email, password) {
     try {
       Cookies.remove('Authorization'); // 쿠키에서 토큰 제거
 
