@@ -3,7 +3,7 @@ import AuthService from '../../services/AuthService';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
 function Login() {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -12,7 +12,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await AuthService.login(formData.username, formData.password);
+      await AuthService.login(formData.email, formData.password);
       window.location.href = '/';
     } catch (error) {
       console.error('Login failed:', error);
